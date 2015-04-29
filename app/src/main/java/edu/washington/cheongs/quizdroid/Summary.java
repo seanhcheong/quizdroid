@@ -17,11 +17,11 @@ public class Summary extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary);
 
-        Intent launchedMe = getIntent();
-        final String topic = launchedMe.getStringExtra("topic");
-        String answer = launchedMe.getStringExtra("answer");
-        final int count = launchedMe.getIntExtra("count", 0);
-        int num = launchedMe.getIntExtra("num", 0);
+        Intent data = getIntent();
+        final String topic = data.getStringExtra("topic");
+        final String answer = data.getStringExtra("answer");
+        final int count = data.getIntExtra("count", 0);
+        int num = data.getIntExtra("num", 0);
 
         TextView summary = (TextView) findViewById(R.id.summary);
         TextView selected = (TextView) findViewById(R.id.chosenAnswer);
@@ -36,7 +36,7 @@ public class Summary extends ActionBarActivity {
                 correctAnswer.setText("Correct Answer: Apple");
             } else if (count == 2) {
                 correctAnswer.setText("Correct Answer: 3 Times");
-            } else if (count == 3) {
+            } else {
                 correctAnswer.setText("Correct Answer: 9.8 m/s/s");
             }
 
@@ -49,19 +49,19 @@ public class Summary extends ActionBarActivity {
                 correctAnswer.setText("Correct Answer: 16");
             } else if (count == 2) {
                 correctAnswer.setText("Correct Answer: 28");
-            } else if (count == 3) {
+            } else {
                 correctAnswer.setText("Correct Answer: 6");
             }
 
             if (answer.equals("16") || answer.equals("28") || answer.equals("6")) {
                 num++;
             }
-        } else if (topic.equals("Marvel Super Heroes")) {
+        } else {
             if (count == 1) {
                 correctAnswer.setText("Correct Answer: Photographer");
             } else if (count == 2) {
                 correctAnswer.setText("Correct Answer: Tony Stark");
-            } else if (count == 3) {
+            } else {
                 correctAnswer.setText("Correct Answer: Cosmic Storm");
             }
 
@@ -73,7 +73,6 @@ public class Summary extends ActionBarActivity {
 
         numCorrect.setText("You have " + num + " out of 3 correct");
         final int number = num;
-
         Button next = (Button) findViewById(R.id.next);
         if (count == 3) {
             next.setText("Finish");
