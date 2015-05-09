@@ -26,7 +26,7 @@ public class TopicsList extends ActionBarActivity {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Intent topicOverview = new Intent(TopicsList.this, Overview.class);
+                Intent topicOverview = new Intent(TopicsList.this, Fragment.class);
                 String view = listview.getItemAtPosition(position).toString();
                 topicOverview.putExtra("topic", view);
                 startActivity(topicOverview);
