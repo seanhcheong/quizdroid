@@ -1,25 +1,23 @@
 package edu.washington.cheongs.quizdroid;
 
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Button;
-import android.view.View;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-
-
 import java.util.ArrayList;
 
 
-public class Testing extends ActionBarActivity {
+public class TestingFragment extends Fragment {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_testing);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        final View starter = inflater.inflate(R.layout.activity_testing, container, false);
 
         ArrayList<String> physicsTrivia = new ArrayList<String>();
         physicsTrivia.add("What fruit fell on Isaac Newton's head? ");
@@ -87,15 +85,15 @@ public class Testing extends ActionBarActivity {
         marvelAnswer.add("Cosmic Storm");
         marvelAnswer.add("Gifted by parents");
 
-        Intent data = getIntent();
+        final Intent data = getActivity().getIntent();
         final String topic = data.getStringExtra("topic");
         final int count = data.getIntExtra("count", 0);
         final int num = data.getIntExtra("num", 0);
-        TextView question = (TextView) findViewById(R.id.question);
-        TextView answer1 = (TextView) findViewById(R.id.answer1);
-        TextView answer2 = (TextView) findViewById(R.id.answer2);
-        TextView answer3 = (TextView) findViewById(R.id.answer3);
-        TextView answer4 = (TextView) findViewById(R.id.answer4);
+        TextView question = (TextView) starter.findViewById(R.id.question);
+        TextView answer1 = (TextView) starter.findViewById(R.id.answer1);
+        TextView answer2 = (TextView) starter.findViewById(R.id.answer2);
+        TextView answer3 = (TextView) starter.findViewById(R.id.answer3);
+        TextView answer4 = (TextView) starter.findViewById(R.id.answer4);
 
         if (topic.equals("Physics")) {
             question.setText(physicsTrivia.get(count));
@@ -116,50 +114,29 @@ public class Testing extends ActionBarActivity {
             answer3.setText(marvelAnswer.get(4 * count + 2));
             answer4.setText(marvelAnswer.get(4 * count + 3));
         }
-        TextView quizType = (TextView) findViewById(R.id.quizTitle);
+
+        TextView quizType = (TextView) starter.findViewById(R.id.quizTitle);
         quizType.setText(topic + " Question #" + (count + 1));
-        Button submit = (Button) findViewById(R.id.submit);
 
-
+        Button submit = (Button) starter.findViewById(R.id.submit);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RadioGroup radio = (RadioGroup) findViewById(R.id.radio);
+                RadioGroup radio = (RadioGroup) starter.findViewById(R.id.radio);
                 int radioId = radio.getCheckedRadioButtonId();
-                // Only move on if a valid radio button has been selected
-                if (radioId != -1) {
-                    Intent answerCheck = new Intent(Testing.this, Summary.class);
-                    TextView checkedButton = (TextView) findViewById(radioId);
-                    answerCheck.putExtra("topic", topic);
-                    answerCheck.putExtra("answer", checkedButton.getText());
-                    answerCheck.putExtra("count", count + 1);
-                    answerCheck.putExtra("num", num);
-                    startActivity(answerCheck);
+                if (radioId != -1) { //why doesn't this work outside of onClickListener?
+                    TextView checkedButton = (TextView) starter.findViewById(radioId);
+                    data.putExtra("topic", topic);
+                    data.putExtra("answer", checkedButton.getText());
+                    data.putExtra("count", count + 1);
+                    data.putExtra("num", num);
+
+                    android.support.v4.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.container, new SummaryFragment());
+                    transaction.commit();
                 }
             }
         });
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_testing, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        return starter;
     }
 }

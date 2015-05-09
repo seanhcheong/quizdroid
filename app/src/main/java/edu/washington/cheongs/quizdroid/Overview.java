@@ -1,8 +1,5 @@
 package edu.washington.cheongs.quizdroid;
 
-/**
- * Created by lt on 4/28/15.
- */
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
