@@ -30,6 +30,10 @@ public class Quiz {
         return answer4;
     }
 
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
     public void setAns1(String answer) {
         this.answer1 = answer;
     }
