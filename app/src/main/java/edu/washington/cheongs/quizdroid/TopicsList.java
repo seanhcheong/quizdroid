@@ -27,8 +27,10 @@ public class TopicsList extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Intent topicOverview = new Intent(TopicsList.this, Fragment.class);
-                String view = listview.getItemAtPosition(position).toString();
-                topicOverview.putExtra("topic", view);
+                String topic = Singleton.getInstance().getElements().get(position).getTitle();
+                String longDesc = Singleton.getInstance().getElements().get(position).getShortDesc();
+                topicOverview.putExtra("topic", topic);
+                topicOverview.putExtra("desc", longDesc);
                 startActivity(topicOverview);
             }
         });

@@ -1,7 +1,18 @@
 package edu.washington.cheongs.quizdroid;
 
 
+import android.app.Application;
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class Singleton implements TopicRepository {
     public ArrayList<Topic> topics;
@@ -22,9 +33,21 @@ public class Singleton implements TopicRepository {
 
     }
 
+    @Override
+    public void onCreate() {
+        instance.onCreate();
+        topics = new ArrayList<Topic>();
+        String json = null;
+        try {
+            InputStream inputStream = getAssets().open("questions.json");
+        }
 
+
+    }
     public ArrayList<Topic> getElements() {
         topics = new ArrayList<>();
+
+
 
         Topic physics = new Topic();
         Topic math = new Topic();
@@ -144,5 +167,7 @@ public class Singleton implements TopicRepository {
 
         return topics;
     }
+
+
 }
 

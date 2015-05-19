@@ -23,23 +23,15 @@ public class OverviewFragment extends Fragment {
 
         final Intent initial = getActivity().getIntent();
         final String topic = initial.getStringExtra("topic");
+        final String description = initial.getStringExtra("desc");
+
         TextView title = (TextView) starter.findViewById(R.id.title);
         TextView desc = (TextView) starter.findViewById(R.id.desc);
         TextView num = (TextView) starter.findViewById(R.id.num);
 
-        if (topic.equals("Physics")) {
-            title.setText("Welcome to the Physics Quiz!");
-            desc.setText("Test your knowledge on some physics trivia!");
-            num.setText("Question Count: 3");
-        } else if (topic.equals("Math")) {
-            title.setText("Welcome to the Math Quiz!");
-            desc.setText("Do you think you're smarter than a 5th grader? Test your mathematical skills");
-            num.setText("Question Count: 3");
-        } else if (topic.equals("Marvel Super Heroes")) {
-            title.setText("Welcome to the Marvel Super Heroes Quiz");
-            desc.setText("Marvel, Not DC super heroes! Test your knowledge!");
-            num.setText("Question Count: 3");
-        }
+        title.setText(topic);
+        desc.setText(description);
+        num.setText("Question Count: 3");
 
         Button begin = (Button) starter.findViewById(R.id.begin);
         begin.setOnClickListener(new View.OnClickListener() {

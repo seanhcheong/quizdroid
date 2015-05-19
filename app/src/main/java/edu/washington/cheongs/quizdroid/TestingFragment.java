@@ -19,72 +19,6 @@ public class TestingFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View starter = inflater.inflate(R.layout.activity_testing, container, false);
 
-        ArrayList<String> physicsTrivia = new ArrayList<String>();
-        physicsTrivia.add("What fruit fell on Isaac Newton's head? ");
-        physicsTrivia.add("How much hotter is a lightning bolt compared to the Sun? ");
-        physicsTrivia.add("What is the acceleration of gravity on Earth? ");
-
-        ArrayList<String> mathTrivia = new ArrayList<String>();
-        mathTrivia.add("What is the sum of 6 and 10? ");
-        mathTrivia.add("What is the product of 7 and 4? ");
-        mathTrivia.add("What is 12 minus 6? ");
-
-        ArrayList<String> marvelTrivia = new ArrayList<String>();
-        marvelTrivia.add("What is the occupation of Peter Parker? ");
-        marvelTrivia.add("What is Iron Man's true secret identity? ");
-        marvelTrivia.add("What gave Mr. Fantastic his super powers? ");
-
-        ArrayList<String> physicsAnswer = new ArrayList<>();
-        // Answers - Q1 for Physics
-        physicsAnswer.add("Apple");
-        physicsAnswer.add("Orange");
-        physicsAnswer.add("Banana");
-        physicsAnswer.add("Kiwi");
-        // Answers - Q2 for Physics
-        physicsAnswer.add("2 Times");
-        physicsAnswer.add("8 Times");
-        physicsAnswer.add("3 Times");
-        physicsAnswer.add("None of the above");
-        // Answers - Q3 for Physics
-        physicsAnswer.add("9.4 m/s/s");
-        physicsAnswer.add("8.6 m/s/s");
-        physicsAnswer.add("9.8 m/s/s");
-        physicsAnswer.add("10.6 m/s/s");
-
-        ArrayList<String> mathAnswer = new ArrayList<>();
-        // Answers - Q1 for Math
-        mathAnswer.add("13");
-        mathAnswer.add("16");
-        mathAnswer.add("12");
-        mathAnswer.add("2");
-        // Answers - Q2 for Math
-        mathAnswer.add("12");
-        mathAnswer.add("43");
-        mathAnswer.add("24");
-        mathAnswer.add("28");
-        // Answers - Q3 for Math
-        mathAnswer.add("5");
-        mathAnswer.add("6");
-        mathAnswer.add("7");
-        mathAnswer.add("8");
-
-        ArrayList<String> marvelAnswer = new ArrayList<>();
-        // Answers - Q1 for Marvel Super Heroes
-        marvelAnswer.add("Chef");
-        marvelAnswer.add("Boxer");
-        marvelAnswer.add("Scientist");
-        marvelAnswer.add("Photographer");
-        // Answers - Q2 for Marvel Super Heroes
-        marvelAnswer.add("Bill Nye, the Science guy");
-        marvelAnswer.add("Ned Stark");
-        marvelAnswer.add("Tony Stark");
-        marvelAnswer.add("Bart Simpson");
-        // Answers - Q3 for Marvel Super Heroes
-        marvelAnswer.add("RadioActive Apple");
-        marvelAnswer.add("Sleep Deprivation");
-        marvelAnswer.add("Cosmic Storm");
-        marvelAnswer.add("Gifted by parents");
-
         final Intent data = getActivity().getIntent();
         final String topic = data.getStringExtra("topic");
         final int count = data.getIntExtra("count", 0);
@@ -95,24 +29,30 @@ public class TestingFragment extends Fragment {
         TextView answer3 = (TextView) starter.findViewById(R.id.answer3);
         TextView answer4 = (TextView) starter.findViewById(R.id.answer4);
 
+        ArrayList<Topic> selection = Singleton.getInstance().getElements();
+
         if (topic.equals("Physics")) {
-            question.setText(physicsTrivia.get(count));
-            answer1.setText(physicsAnswer.get(4 * count));
-            answer2.setText(physicsAnswer.get(4 * count + 1));
-            answer3.setText(physicsAnswer.get(4 * count + 2));
-            answer4.setText(physicsAnswer.get(4 * count + 3));
+            ArrayList<Quiz> selectedQuiz = selection.get(0).getQuestions();
+            question.setText(selectedQuiz.get(count).getQuestion());
+            answer1.setText(selectedQuiz.get(count).getAnswer1());
+            answer2.setText(selectedQuiz.get(count).getAnswer2());
+            answer3.setText(selectedQuiz.get(count).getAnswer3());
+            answer4.setText(selectedQuiz.get(count).getAnswer4());
+
         } else if (topic.equals("Math")) {
-            question.setText(mathTrivia.get(count));
-            answer1.setText(mathAnswer.get(4 * count));
-            answer2.setText(mathAnswer.get(4 * count + 1));
-            answer3.setText(mathAnswer.get(4 * count + 2));
-            answer4.setText(mathAnswer.get(4 * count + 3));
+            ArrayList<Quiz> selectedQuiz = selection.get(1).getQuestions();
+            question.setText(selectedQuiz.get(count).getQuestion());
+            answer1.setText(selectedQuiz.get(count).getAnswer1());
+            answer2.setText(selectedQuiz.get(count).getAnswer2());
+            answer3.setText(selectedQuiz.get(count).getAnswer3());
+            answer4.setText(selectedQuiz.get(count).getAnswer4());
         } else {
-            question.setText(marvelTrivia.get(count));
-            answer1.setText(marvelAnswer.get(4 * count));
-            answer2.setText(marvelAnswer.get(4 * count + 1));
-            answer3.setText(marvelAnswer.get(4 * count + 2));
-            answer4.setText(marvelAnswer.get(4 * count + 3));
+            ArrayList<Quiz> selectedQuiz = selection.get(2).getQuestions();
+            question.setText(selectedQuiz.get(count).getQuestion());
+            answer1.setText(selectedQuiz.get(count).getAnswer1());
+            answer2.setText(selectedQuiz.get(count).getAnswer2());
+            answer3.setText(selectedQuiz.get(count).getAnswer3());
+            answer4.setText(selectedQuiz.get(count).getAnswer4());
         }
 
         TextView quizType = (TextView) starter.findViewById(R.id.quizTitle);
@@ -124,7 +64,7 @@ public class TestingFragment extends Fragment {
             public void onClick(View v) {
                 RadioGroup radio = (RadioGroup) starter.findViewById(R.id.radio);
                 int radioId = radio.getCheckedRadioButtonId();
-                if (radioId != -1) { //why doesn't this work outside of onClickListener?
+                if (radioId != -1) {
                     TextView checkedButton = (TextView) starter.findViewById(radioId);
                     data.putExtra("topic", topic);
                     data.putExtra("answer", checkedButton.getText());
