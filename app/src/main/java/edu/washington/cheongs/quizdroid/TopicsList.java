@@ -18,7 +18,7 @@ public class TopicsList extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_topics_list);
 
-        String[] values = new String[] {"Physics", "Math", "Marvel Super Heroes"};
+        String[] values = new String[] {"Science!", "Marvel Super Heroes", "Mathematics"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,android.R.id.text1, values);
         final ListView listview = (ListView) findViewById(R.id.topics);
         listview.setAdapter(adapter);
@@ -27,10 +27,8 @@ public class TopicsList extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Intent topicOverview = new Intent(TopicsList.this, Fragment.class);
-                String topic = Singleton.getInstance().getElements().get(position).getTitle();
-                String longDesc = Singleton.getInstance().getElements().get(position).getShortDesc();
+                String topic = "Science!";
                 topicOverview.putExtra("topic", topic);
-                topicOverview.putExtra("desc", longDesc);
                 startActivity(topicOverview);
             }
         });

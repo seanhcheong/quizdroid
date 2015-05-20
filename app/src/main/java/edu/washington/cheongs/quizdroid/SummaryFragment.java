@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class SummaryFragment extends android.support.v4.app.Fragment {
 
     @Override
@@ -21,11 +23,46 @@ public class SummaryFragment extends android.support.v4.app.Fragment {
         String answer = data.getStringExtra("answer");
         final int count = data.getIntExtra("count", 0);
         int num = data.getIntExtra("num", 0);
+        int answerID = data.getIntExtra("answerSelection", 0);
+
+        String answer1 = data.getStringExtra("answer1");
+        String answer2 = data.getStringExtra("answer2");
+        String answer3 = data.getStringExtra("answer3");
+        String answer4 = data.getStringExtra("answer4");
+
+        ArrayList<String> answerOptions = new ArrayList<String>();
+        answerOptions.add(answer1);
+        answerOptions.add(answer2);
+        answerOptions.add(answer3);
+        answerOptions.add(answer4);
+
+        // int correctOption = data.getIntExtra("correctOption");
 
         TextView summary = (TextView) starter.findViewById(R.id.summary);
         TextView chosenAnswer = (TextView) starter.findViewById(R.id.chosenAnswer);
         TextView correctAnswer = (TextView) starter.findViewById(R.id.correctAnswer);
         TextView numCorrect = (TextView) starter.findViewById(R.id.numCorrect);
+
+//        if(count == 1) {
+//            correctAnswer.setText(answerOptions.get(correctOption));
+//        } else if(count == 2) {
+//
+//        }
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         summary.setText(topic);
         chosenAnswer.setText("Your answer was: " + answer);

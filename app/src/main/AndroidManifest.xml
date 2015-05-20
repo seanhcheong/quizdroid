@@ -7,7 +7,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
-        android:name="edu.washington.cheongs.quizdroid.QuizApp">
+        android:name=".QuizApp">
         <activity
             android:name=".TopicsList"
             android:label="@string/app_name" >

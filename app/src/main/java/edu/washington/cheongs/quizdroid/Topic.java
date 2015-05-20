@@ -8,7 +8,10 @@ public class Topic {
     private String longDesc;
     private ArrayList<Quiz> questions;
 
-    public Topic() {
+    public Topic(String title, String desc, ArrayList<Quiz> topicOptions) {
+        this.title = title;
+        this.shortDesc = desc;
+        this.questions = topicOptions;
     }
 
     public String getTitle() {
