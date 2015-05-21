@@ -21,8 +21,7 @@ public class TestingFragment extends Fragment {
         final ArrayList<Quiz> selectedQuiz;
         final ArrayList<Topic> selection;
 
-        QuizApp topicsAcquired = (QuizApp)getApplication();
-        ArrayList<Topic> pickOne = topicsAcquired.topics;
+
 
         final Intent data = getActivity().getIntent();
         final String topic = data.getStringExtra("topic");
@@ -36,11 +35,12 @@ public class TestingFragment extends Fragment {
         TextView answer3 = (TextView) starter.findViewById(R.id.answer3);
         TextView answer4 = (TextView) starter.findViewById(R.id.answer4);
 
-        selection = QuizApp.getInstance().getElements();
+        QuizApp topicsAcquired = (QuizApp)getActivity().getApplication();
+        selection = topicsAcquired.topics;
 
         if (topic.equals("Science!")) {
             selectedQuiz = selection.get(0).getQuestions();
-            question.setText(selectedQuiz.get(count).getQuestion());
+            question.setText(selectedQuiz.get(count).getAnswer1());
             answer1.setText(selectedQuiz.get(count).getAnswer1());
             answer2.setText(selectedQuiz.get(count).getAnswer2());
             answer3.setText(selectedQuiz.get(count).getAnswer3());

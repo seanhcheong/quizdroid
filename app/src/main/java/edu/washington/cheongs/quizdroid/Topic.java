@@ -8,7 +8,6 @@ public class Topic implements Serializable {
     public String shortDesc;
     public String longDesc;
     public ArrayList<Quiz> questions;
-    public ArrayList<Topic> TopicList;
 
 
     public Topic(String title, String desc, ArrayList<Quiz> topicOptions) {

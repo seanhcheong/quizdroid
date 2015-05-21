@@ -38,7 +38,6 @@ public class TopicsList extends ActionBarActivity {
                 String longDesc = QuizApp.getInstance().getElements().get(position).getShortDesc();
                 topicOverview.putExtra("topic", topic);
                 topicOverview.putExtra("desc", longDesc);
-                topicOverview.putExtra("listOfTopics", pickOne);
                 startActivity(topicOverview);
             }
         });

@@ -48,20 +48,22 @@ import java.util.ArrayList;
                 json = readJSONFile(inputStream);
 
                 JSONArray container = new JSONArray(json);
+
                 for (int i = 0; i < container.length(); i++) {
                     String title = container.getJSONObject(i).getString("title");
                     String desc = container.getJSONObject(i).getString("desc");
                     JSONArray questions = container.getJSONObject(i).getJSONArray("questions");
                     ArrayList<Quiz> topicOptions = new ArrayList<Quiz>();
-                    for (int j = 0; j < topicOptions.size(); j++) {
-                        String questionAsked = questions.getJSONObject(i).getString("text");
-                        int correctAnswer = questions.getJSONObject(i).getInt("answer");
-                        JSONArray answerOptions = questions.getJSONObject(i).getJSONArray("answers");
+
+                    for (int j = 0; j < questions.length(); j++) {
+                        String questionAsked = questions.getJSONObject(j).getString("text");
+                        int correctAnswer = questions.getJSONObject(j).getInt("answer");
+                        JSONArray answerOptions = questions.getJSONObject(j).getJSONArray("answers");
                         String answer1 = answerOptions.getString(0);
                         String answer2 = answerOptions.getString(1);
                         String answer3 = answerOptions.getString(2);
                         String answer4 = answerOptions.getString(3);
-                        topicOptions.add(new Quiz(questionAsked, correctAnswer, answer1, answer2, answer3, answer4));
+                        topicOptions.add(new Quiz(questionAsked, correctAnswer - 1, answer1, answer2, answer3, answer4));
                     }
 
                     Topic single = new Topic(title, desc, topicOptions);
