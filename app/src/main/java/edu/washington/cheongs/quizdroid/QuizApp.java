@@ -16,19 +16,18 @@ import java.util.ArrayList;
     public class QuizApp extends Application implements TopicRepository {
 
         public ArrayList<Topic> topics;
-        public static QuizApp instance;
+        public static QuizApp instance = null;
 
-//        public ArrayList<String> listOfTitles;
 
-        public static void initInstance() {
-            if (instance == null) {
-                instance = new QuizApp();
+        public QuizApp() {
+            if(instance == null) {
+                instance = this;
+            } else {
+                throw new RuntimeException("One at a time");
             }
         }
 
-//        public ArrayList<String>quizTitles() {
-//            return listOfTitles;
-//        }
+
         public static QuizApp getInstance() {
             return instance;
         }
@@ -37,19 +36,10 @@ import java.util.ArrayList;
             return topics;
         }
 
-        protected void initialization() {
-            QuizApp.initInstance();
-        }
-
-
-
         @Override
         public void onCreate() {
             super.onCreate();
-
             Log.d("QuizApp", "App is running");
-            initialization();
-
             topics = new ArrayList<Topic>();
             String json = null;
 
@@ -60,9 +50,8 @@ import java.util.ArrayList;
                 JSONArray container = new JSONArray(json);
                 for (int i = 0; i < container.length(); i++) {
                     String title = container.getJSONObject(i).getString("title");
-//                    listOfTitles.add(title);
                     String desc = container.getJSONObject(i).getString("desc");
-                    JSONArray questions = container.getJSONObject(i).getJSONArray("Questions");
+                    JSONArray questions = container.getJSONObject(i).getJSONArray("questions");
                     ArrayList<Quiz> topicOptions = new ArrayList<Quiz>();
                     for (int j = 0; j < topicOptions.size(); j++) {
                         String questionAsked = questions.getJSONObject(i).getString("text");
@@ -91,5 +80,7 @@ import java.util.ArrayList;
             inputStream.close();
             return new String(buffer, "UTF-8");
         }
+
+
     }
 

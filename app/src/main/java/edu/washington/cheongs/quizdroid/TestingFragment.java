@@ -21,10 +21,14 @@ public class TestingFragment extends Fragment {
         final ArrayList<Quiz> selectedQuiz;
         final ArrayList<Topic> selection;
 
+        QuizApp topicsAcquired = (QuizApp)getApplication();
+        ArrayList<Topic> pickOne = topicsAcquired.topics;
+
         final Intent data = getActivity().getIntent();
         final String topic = data.getStringExtra("topic");
         final int count = data.getIntExtra("count", 0);
         final int num = data.getIntExtra("num", 0);
+
 
         TextView question = (TextView) starter.findViewById(R.id.question);
         TextView answer1 = (TextView) starter.findViewById(R.id.answer1);
@@ -106,4 +110,6 @@ public class TestingFragment extends Fragment {
         });
         return starter;
     }
+
+
 }

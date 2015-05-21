@@ -25,6 +25,8 @@ public class SummaryFragment extends android.support.v4.app.Fragment {
         int num = data.getIntExtra("num", 0);
         int answerID = data.getIntExtra("answerSelection", 0);
 
+
+
         String answer1 = data.getStringExtra("answer1");
         String answer2 = data.getStringExtra("answer2");
         String answer3 = data.getStringExtra("answer3");
@@ -42,27 +44,6 @@ public class SummaryFragment extends android.support.v4.app.Fragment {
         TextView chosenAnswer = (TextView) starter.findViewById(R.id.chosenAnswer);
         TextView correctAnswer = (TextView) starter.findViewById(R.id.correctAnswer);
         TextView numCorrect = (TextView) starter.findViewById(R.id.numCorrect);
-
-//        if(count == 1) {
-//            correctAnswer.setText(answerOptions.get(correctOption));
-//        } else if(count == 2) {
-//
-//        }
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         summary.setText(topic);
         chosenAnswer.setText("Your answer was: " + answer);
@@ -137,6 +118,7 @@ public class SummaryFragment extends android.support.v4.app.Fragment {
 
         return starter;
     }
+
 
 
 }

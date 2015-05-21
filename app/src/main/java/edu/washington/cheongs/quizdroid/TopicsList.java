@@ -10,6 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
 
 public class TopicsList extends ActionBarActivity {
 
@@ -17,8 +19,13 @@ public class TopicsList extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_topics_list);
+        QuizApp topicsAcquired = (QuizApp)getApplication();
+        final ArrayList<Topic> pickOne = topicsAcquired.topics;
 
-        String[] values = new String[] {"Science!", "Marvel Super Heroes", "Mathematics"};
+        String[] values = new String[pickOne.size()];
+        for(int i = 0; i < pickOne.size(); i++) {
+            values[i] = pickOne.get(i).getTitle();
+        }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,android.R.id.text1, values);
         final ListView listview = (ListView) findViewById(R.id.topics);
         listview.setAdapter(adapter);
@@ -27,8 +34,11 @@ public class TopicsList extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Intent topicOverview = new Intent(TopicsList.this, Fragment.class);
-                String topic = "Science!";
+                String topic = QuizApp.getInstance().getElements().get(position).getTitle();
+                String longDesc = QuizApp.getInstance().getElements().get(position).getShortDesc();
                 topicOverview.putExtra("topic", topic);
+                topicOverview.putExtra("desc", longDesc);
+                topicOverview.putExtra("listOfTopics", pickOne);
                 startActivity(topicOverview);
             }
         });

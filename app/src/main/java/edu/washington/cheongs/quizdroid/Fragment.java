@@ -5,7 +5,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-
+import java.util.ArrayList;
 
 
 public class Fragment extends ActionBarActivity {
@@ -15,10 +15,18 @@ public class Fragment extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
 
+        QuizApp topicsAcquired = (QuizApp)getApplication();
+        final ArrayList<Topic> pickOne = topicsAcquired.topics;
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, new OverviewFragment())
                     .commit();
+
+
+
+
+
         }
     }
 
