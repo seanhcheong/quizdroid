@@ -3,11 +3,14 @@ package edu.washington.cheongs.quizdroid;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class SummaryFragment extends android.support.v4.app.Fragment {
 
@@ -21,6 +24,22 @@ public class SummaryFragment extends android.support.v4.app.Fragment {
         String answer = data.getStringExtra("answer");
         final int count = data.getIntExtra("count", 0);
         int num = data.getIntExtra("num", 0);
+        int answerID = data.getIntExtra("answerSelection", 0);
+
+        int correctOption = data.getIntExtra("correctOption", 0);
+        int totalQuestion = data.getIntExtra("totalQuestion", 0);
+        Log.i("CHAH", "" + totalQuestion);
+
+        String answer1 = data.getStringExtra("answer1");
+        String answer2 = data.getStringExtra("answer2");
+        String answer3 = data.getStringExtra("answer3");
+        String answer4 = data.getStringExtra("answer4");
+
+        ArrayList<String> answerOptions = new ArrayList<String>();
+        answerOptions.add(answer1);
+        answerOptions.add(answer2);
+        answerOptions.add(answer3);
+        answerOptions.add(answer4);
 
         TextView summary = (TextView) starter.findViewById(R.id.summary);
         TextView chosenAnswer = (TextView) starter.findViewById(R.id.chosenAnswer);
@@ -30,51 +49,16 @@ public class SummaryFragment extends android.support.v4.app.Fragment {
         summary.setText(topic);
         chosenAnswer.setText("Your answer was: " + answer);
 
-        if (topic.equals("Physics")) {
-            if (count == 1) {
-                correctAnswer.setText("Correct Answer: Apple");
-            } else if (count == 2) {
-                correctAnswer.setText("Correct Answer: 3 Times");
-            } else {
-                correctAnswer.setText("Correct Answer: 9.8 m/s/s");
-            }
-
-            if (answer.equals("Apple") || answer.equals("3 Times") ||
-                    answer.equals("9.8 m/s/s")) {
-                num++;
-            }
-        } else if (topic.equals("Math")) {
-            if (count == 1) {
-                correctAnswer.setText("Correct Answer: 16");
-            } else if (count == 2) {
-                correctAnswer.setText("Correct Answer: 28");
-            } else {
-                correctAnswer.setText("Correct Answer: 6");
-            }
-
-            if (answer.equals("16") || answer.equals("28") || answer.equals("6")) {
-                num++;
-            }
-        } else {
-            if (count == 1) {
-                correctAnswer.setText("Correct Answer: Photographer");
-            } else if (count == 2) {
-                correctAnswer.setText("Correct Answer: Tony Stark");
-            } else {
-                correctAnswer.setText("Correct Answer: Cosmic Storm");
-            }
-
-            if (answer.equals("Photographer") || answer.equals("Tony Stark") ||
-                    answer.equals("Cosmic Storm")) {
-                num++;
-            }
+        correctAnswer.setText("Correct Option is: " + answerOptions.get(correctOption));
+        if(correctOption == answerID) {
+            num++;
         }
 
         numCorrect.setText("You have " + num + " out of " + count + " correct");
         final int number = num;
 
         Button next = (Button) starter.findViewById(R.id.next);
-        if (count == 3) {
+        if (count == totalQuestion) {
             next.setText("Finish");
             next.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -100,6 +84,7 @@ public class SummaryFragment extends android.support.v4.app.Fragment {
 
         return starter;
     }
+
 
 
 }

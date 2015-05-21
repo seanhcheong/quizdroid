@@ -1,6 +1,8 @@
 package edu.washington.cheongs.quizdroid;
 
 
+import org.json.JSONArray;
+
 public class Quiz {
     private String question;
     private String answer1;
@@ -9,8 +11,15 @@ public class Quiz {
     private String answer4;
     private int correctOption;
 
-    public Quiz() {
 
+
+    public Quiz(String questionAsked, int correctAnswer, String answer1, String answer2, String answer3, String answer4) {
+        this.question = questionAsked;
+        this.correctOption = correctAnswer;
+        this.answer1 = answer1;
+        this.answer2 = answer2;
+        this.answer3 = answer3;
+        this.answer4 = answer4;
     }
 
     public String getQuestion() {
@@ -52,6 +61,10 @@ public class Quiz {
 
     public void setRightAnswer(int option) {
         this.correctOption = option;
+    }
+
+    public int getRightAnswer() {
+        return correctOption;
     }
 
 
