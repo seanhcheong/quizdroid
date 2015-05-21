@@ -63,5 +63,9 @@ public class Quiz {
         this.correctOption = option;
     }
 
+    public int getRightAnswer() {
+        return correctOption;
+    }
+
 
 }
