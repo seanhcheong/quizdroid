@@ -48,6 +48,13 @@
             android:name=".Fragment"
             android:label="@string/title_activity_fragment" >
         </activity>
+        <activity
+            android:name=".nextPreference"
+            android:label="nextPreference">
+        </activity>
+        <receiver android:name=".Receiver">
+
+        </receiver>
     </application>
 
 </manifest>

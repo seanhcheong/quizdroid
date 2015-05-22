@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.prefs.Preferences;
 
 
 public class TopicsList extends ActionBarActivity {
@@ -61,6 +62,11 @@ public class TopicsList extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+
+        if (id == R.id.preferences) {
+            Intent pref = new Intent(TopicsList.this, nextPreference.class);
+            startActivity(pref);
         }
 
         return super.onOptionsItemSelected(item);
